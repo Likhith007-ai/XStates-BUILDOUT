@@ -2,12 +2,23 @@
   text-align: center;
 }
 
-select{
+select {
   height: 40px;
   width: 180px;
   margin-left: 15px;
   border-radius: 5px;
-  font-family:monospace;
+  font-family: monospace;
   font-size: 15px;
   background-color: rgb(221, 234, 234);
+}
+.result-style {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.highlight-style {
+  font-weight: bold;
+  font-size: 24px;
+}
+.fade-style {
+  color: #888;
 }

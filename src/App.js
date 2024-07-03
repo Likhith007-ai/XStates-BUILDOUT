@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./App.css";
 
-function App() {
+const CitySelector = () => {
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -17,7 +17,7 @@ function App() {
           "https://crio-location-selector.onrender.com/countries"
         );
         console.log("Countries API Response:", response.data);
-        setCountries(response.data || []);
+        setCountries(response.data);
       } catch (err) {
         console.log("Error fetching countries", err);
       }
@@ -69,59 +69,60 @@ function App() {
   return (
     <div className="App">
       <h1>Select Location</h1>
-      <select
-        value={selectedCountry}
-        onChange={(e) => setSelectedCountry(e.target.value)}
-      >
-        <option value="" disabled>
-          Select Country
-        </option>
-        {countries.map((country) => (
-          <option key={country} value={country}>
-            {country}
-          </option>
-        ))}
-      </select>
-      <select
-        value={selectedState}
-        onChange={(e) => setSelectedState(e.target.value)}
-        disabled={!selectedCountry}
-      >
-        <option value="">Select State</option>
-        {states.map((state) => (
-          <option key={state} value={state}>
-            {state}
-          </option>
-        ))}
-      </select>
-      <select
-        value={selectedCity}
-        onChange={(e) => setSelectedCity(e.target.value)}
-        disabled={!selectedState}
-      >
-        <option value="" disabled>
-          Select City
-        </option>
-        {cities.map((city) => (
-          <option key={city} value={city}>
-            {city}
-          </option>
-        ))}
-      </select>
       <div>
-        {selectedCity && (
-          <h3>
-            You selected{" "}
-            <span style={{ fontSize: "25px" }}>{selectedCity}</span>,
-            <span style={{ color: "GrayText" }}>
-              {" "}
-              {selectedState},{selectedCountry}
-            </span>
-          </h3>
-        )}
+        <select
+          value={selectedCountry}
+          onChange={(e) => setSelectedCountry(e.target.value)}
+        >
+          <option value="" disabled>
+            Select Country
+          </option>
+          {countries.map((country) => (
+            <option key={country} value={country}>
+              {country}
+            </option>
+          ))}
+        </select>
+        <select
+          value={selectedState}
+          onChange={(e) => setSelectedState(e.target.value)}
+          disabled={!selectedCountry}
+        >
+          <option value="" disabled>
+            Select State
+          </option>
+          {states.map((state) => (
+            <option key={state} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
+        <select
+          value={selectedCity}
+          onChange={(e) => setSelectedCity(e.target.value)}
+          disabled={!selectedState}
+        >
+          <option value="" disabled>
+            Select City
+          </option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
       </div>
+      {selectedCity && (
+        <h2 className="result-style">
+          You selected <span className="highlight-style">{selectedCity}</span>,
+          <span className="fade-style">
+            {" "}
+            {selectedState}, {selectedCountry}
+          </span>
+        </h2>
+      )}
     </div>
   );
-}
+};
 
-export default App;
+export default CitySelector;
